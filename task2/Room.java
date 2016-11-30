@@ -68,9 +68,20 @@ public class Room {
         this.cityName = cityName;
     }
 
-    @Override
+    /*@Override
     public int hashCode() {
         return super.hashCode();
+    }*/
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + price;
+        result = 31 * result + persons;
+        result = 31 * result + dateAvailableFrom.hashCode();
+        result = 31 * result + hotelName.hashCode();
+        result = 31 * result + cityName.hashCode();
+        return result;
     }
 
     @Override
@@ -81,11 +92,9 @@ public class Room {
         }
         if (obj instanceof Room) {
             Room anotherObj = (Room)obj;
-            if (this.price == anotherObj.getPrice() &&
+            return this.price == anotherObj.getPrice() &&
                     this.persons == anotherObj.getPersons() &&
-                    this.cityName.equals(anotherObj.getCityName())) {
-                return true;
-            }
+                    this.cityName.equals(anotherObj.getCityName());
         }
         return false;
     }
